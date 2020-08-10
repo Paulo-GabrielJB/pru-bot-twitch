@@ -11,6 +11,7 @@ import br.com.paulogabrieljb.twitchbot.factories.UserFactory;
 import br.com.paulogabrieljb.twitchbot.listeners.DisconectListener;
 import br.com.paulogabrieljb.twitchbot.listeners.MessageListener;
 import br.com.paulogabrieljb.twitchbot.model.User;
+import com.gikk.twirk.events.TwirkListener;
 
 public class Program {
 
@@ -28,6 +29,12 @@ public class Program {
 
 		twirk.addIrcListener(new DisconectListener(twirk));
 		twirk.addIrcListener(new MessageListener(twirk, user));
+		twirk.addIrcListener(new TwirkListener() {
+			@Override
+			public void onConnect() {
+				twirk.channelMessage("ENTREEEI AAAA");
+			}
+		});
 		
 		if(user.getInteract())
 			System.out.println("Interção com o chat via mensagens ativada!");

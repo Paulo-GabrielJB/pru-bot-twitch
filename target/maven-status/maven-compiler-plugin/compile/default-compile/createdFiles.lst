@@ -1,0 +1,6 @@
+br\com\paulogabrieljb\twitchbot\Program.class
+br\com\paulogabrieljb\twitchbot\exceptions\UserException.class
+br\com\paulogabrieljb\twitchbot\factories\UserFactory.class
+br\com\paulogabrieljb\twitchbot\listeners\DisconectListener.class
+br\com\paulogabrieljb\twitchbot\model\User.class
+br\com\paulogabrieljb\twitchbot\listeners\MessageListener.class

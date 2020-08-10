@@ -23,7 +23,7 @@ public class MessageListener implements TwirkListener {
 			throw new IllegalArgumentException("User can't be null");
 
 		if (message.getContent().toUpperCase().contains(user.getUsername().toUpperCase()) && user.getInteract()
-				&& sender.getDisplayName().equalsIgnoreCase(user.getUsername()))
+				&& !sender.getDisplayName().equalsIgnoreCase(user.getUsername()))
 			twirk.channelMessage(sender.getDisplayName() + " mensagem teste bot twitch java");
 	}
 
