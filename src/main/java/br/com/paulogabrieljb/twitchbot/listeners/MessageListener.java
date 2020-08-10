@@ -27,4 +27,8 @@ public class MessageListener implements TwirkListener {
 			twirk.channelMessage(sender.getDisplayName() + " mensagem teste bot twitch java");
 	}
 
+	@Override
+	public void onConnect() {
+		twirk.channelMessage(user.getWelcomeMessage());
+	}
 }

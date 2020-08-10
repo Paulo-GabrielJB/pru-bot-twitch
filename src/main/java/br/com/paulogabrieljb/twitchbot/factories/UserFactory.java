@@ -15,7 +15,8 @@ public class UserFactory {
 		String username = props.getProperty("username");
 		String token = props.getProperty("token");
 		Boolean interact = Boolean.parseBoolean(props.getProperty("interact"));
-		return new User(username, token, interact);
+		String welcomeMessage = props.getProperty("enter.channel.message");
+		return new User(username, token, interact, welcomeMessage);
 	}
 	
 	

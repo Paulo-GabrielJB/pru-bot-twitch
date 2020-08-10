@@ -5,13 +5,15 @@ public class User {
 	private String username;
 	private String token;
 	private Boolean interact;
+	private String welcomeMessage;
 	
 	public User() {}
 
-	public User(String username, String token, Boolean interact) {
+	public User(String username, String token, Boolean interact, String welcomeMessage) {
 		this.username = username;
 		this.token = token;
 		this.interact = interact;
+		this.welcomeMessage = welcomeMessage;
 	}
 
 	public String getUsername() {
@@ -37,5 +39,12 @@ public class User {
 	public void setInteract(Boolean interact) {
 		this.interact = interact;
 	}
-	
+
+	public String getWelcomeMessage() {
+		return welcomeMessage;
+	}
+
+	public void setWelcomeMessage(String welcomeMessage) {
+		this.welcomeMessage = welcomeMessage;
+	}
 }
