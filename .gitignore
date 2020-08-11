@@ -23,7 +23,7 @@
 hs_err_pid*
 
 *.properties
-
+*.lst
 .settings/
 .classpath
 .project

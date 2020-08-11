@@ -10,12 +10,29 @@ public class InputConsoleListener {
 
         String line;
         while (!(line = scanner.nextLine()).matches(".quit"))
-            twirk.channelMessage(line);
-
+            switch (line) {
+                case ".add" :
+                    commandAdd(line, scanner);
+                    break;
+                default:
+                    twirk.channelMessage(line);
+            }
 
         twirk.close();
-
         scanner.close();
+    }
+
+    private static void commandAdd(String line, Scanner scanner){
+        String cm = line.replaceAll(".add", "").trim();
+
+        if(cm.equals("")){
+            System.out.print("Enter command type (interact, new): ");
+            String str = scanner.nextLine();
+            if(str.trim().equals("interact"))
+                System.out.println("Comando de interação");
+
+        }
+
     }
 
 }
