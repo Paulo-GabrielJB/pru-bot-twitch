@@ -34,7 +34,7 @@ public class Program {
 		System.out.println("\nPara sair, digite .quit e aperte enter Enter\n");
 
 		if(twirk != null)
-			InputConsoleListener.readConsole(twirk, scanner);
+			InputConsoleListener.readConsole(twirk);
 	}
 
 }

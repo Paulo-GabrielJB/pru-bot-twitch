@@ -55,6 +55,7 @@ public class DatabaseConfig {
                 LOG.info("Creating TB_COMMANDS");
                 ps = conn.prepareStatement("CREATE TABLE TB_COMMANDS (" +
                         " ID_COMMAND INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " NM_COMMAND VARCHAR(255)," +
                         " DS_COMMAND VARCHAR(255)," +
                         " FL_RANDOM BOOLEAN)");
                 ps.execute();
