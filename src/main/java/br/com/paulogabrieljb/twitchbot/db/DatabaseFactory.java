@@ -13,7 +13,7 @@ public class DatabaseFactory {
     private static final String DB = "db.db";
     private static Connection conn = null;
 
-    public static final Connection loadDatabase() {
+    public static void loadDatabase() {
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -23,8 +23,8 @@ public class DatabaseFactory {
             new BufferedReader(new FileReader(DB));
 
             LOG.info("Try to connect to database.");
-            if (conn == null)
-                conn = DriverManager.getConnection(DB_URL);
+
+            conn = getConnection();
 
             LOG.info("Connected...");
 
@@ -42,7 +42,7 @@ public class DatabaseFactory {
                             " DS_MESSAGE VARCHAR(255))");
                     ps.execute();
                 }
-            }
+                }
 
             rs.close();
             ps.close();
@@ -74,10 +74,9 @@ public class DatabaseFactory {
         } finally {
             close(rs, ps, null);
         }
-        return conn;
     }
 
-    private static final void createDatabaseFile() {
+    private static void createDatabaseFile() {
         try {
             new BufferedWriter(new FileWriter(DB));
         } catch (IOException e) {
