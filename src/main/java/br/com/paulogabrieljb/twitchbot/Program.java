@@ -4,37 +4,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-import br.com.paulogabrieljb.twitchbot.configurations.DatabaseConfig;
+import br.com.paulogabrieljb.twitchbot.db.DatabaseFactory;
 import br.com.paulogabrieljb.twitchbot.configurations.TwirkConfigure;
 import br.com.paulogabrieljb.twitchbot.listeners.InputConsoleListener;
+import br.com.paulogabrieljb.twitchbot.listeners.ListenerFactory;
 import com.gikk.twirk.Twirk;
-import com.gikk.twirk.TwirkBuilder;
 
-import br.com.paulogabrieljb.twitchbot.factories.UserFactory;
-import br.com.paulogabrieljb.twitchbot.listeners.DisconectListener;
-import br.com.paulogabrieljb.twitchbot.listeners.MessageListener;
+import br.com.paulogabrieljb.twitchbot.model.UserFactory;
 import br.com.paulogabrieljb.twitchbot.model.User;
-import com.gikk.twirk.events.TwirkListener;
 import org.apache.log4j.BasicConfigurator;
 
 public class Program {
 
-	public static void main(String args[]) throws IOException, InterruptedException {
+	public static void main(String args[]) {
 
 		BasicConfigurator.configure();
-		DatabaseConfig.loadDatabase();
-		System.out.print("Insira o canal no qual você vai entrar: ");
-		Scanner scanner = new Scanner(new InputStreamReader(System.in, "UTF-8"));
-		String channel = "#" + scanner.nextLine();
-
-		User user = UserFactory.getUser();
+		DatabaseFactory.loadDatabase();
 		
-		Twirk twirk = TwirkConfigure.configureTwirk(channel, user);
+		Twirk twirk = TwirkConfigure.getTwirk();
 
-		System.out.println("\nPara sair, digite .quit e aperte enter Enter\n");
+		System.out.println("\nFor help type .help and hit enter\n");
 
 		if(twirk != null)
-			InputConsoleListener.readConsole(twirk);
+			ListenerFactory.getInputConsoleListener().readConsole();
 	}
 
 }

@@ -1,7 +1,7 @@
 package br.com.paulogabrieljb.twitchbot.listeners;
 
-import br.com.paulogabrieljb.twitchbot.configurations.DatabaseConfig;
-import br.com.paulogabrieljb.twitchbot.repositories.MessageRepository;
+import br.com.paulogabrieljb.twitchbot.model.Generic;
+import br.com.paulogabrieljb.twitchbot.services.InteractService;
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.events.TwirkListener;
 import com.gikk.twirk.types.twitchMessage.TwitchMessage;
@@ -9,11 +9,6 @@ import com.gikk.twirk.types.users.TwitchUser;
 
 import br.com.paulogabrieljb.twitchbot.model.User;
 
-import javax.xml.crypto.Data;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,12 +16,12 @@ public class MessageListener implements TwirkListener {
 
 	private Twirk twirk;
 	private User user;
-	private MessageRepository messageRepository;
+	private final InteractService interactService;
 
-	public MessageListener(Twirk twirk, User user, MessageRepository messageRepository) {
+	public MessageListener(Twirk twirk, User user, final InteractService interactService) {
 		this.twirk = twirk;
 		this.user = user;
-		this.messageRepository = messageRepository;
+		this.interactService = interactService;
 	}
 
 	@Override
@@ -36,8 +31,9 @@ public class MessageListener implements TwirkListener {
 
 		if (message.getContent().toUpperCase().contains(user.getUsername().toUpperCase()) && user.getInteract()
 				&& !sender.getDisplayName().equalsIgnoreCase(user.getUsername())) {
-			List<String> messages = getMessages();
-			twirk.channelMessage(sender.getDisplayName() + " " + messages.get(new Random().nextInt(messages.size())));
+			List<Generic> messages = getMessages();
+			if(messages.size() > 0)
+				twirk.channelMessage(sender.getDisplayName() + " " + messages.get(new Random().nextInt(messages.size())).getMessage());
 		}
 	}
 
@@ -46,7 +42,7 @@ public class MessageListener implements TwirkListener {
 		twirk.channelMessage(user.getWelcomeMessage());
 	}
 
-	private List<String> getMessages(){
-		return messageRepository.findAll();
+	private List<Generic> getMessages(){
+		return interactService.findAll();
 	}
 }

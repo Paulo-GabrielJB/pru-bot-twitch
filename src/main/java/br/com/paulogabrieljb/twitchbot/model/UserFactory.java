@@ -1,4 +1,4 @@
-package br.com.paulogabrieljb.twitchbot.factories;
+package br.com.paulogabrieljb.twitchbot.model;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Scanner;
 
-import br.com.paulogabrieljb.twitchbot.configurations.DatabaseConfig;
-import br.com.paulogabrieljb.twitchbot.exceptions.UserException;
-import br.com.paulogabrieljb.twitchbot.model.User;
+import br.com.paulogabrieljb.twitchbot.factories.ScannerFactory;
 import org.apache.log4j.Logger;
 
 public class UserFactory {

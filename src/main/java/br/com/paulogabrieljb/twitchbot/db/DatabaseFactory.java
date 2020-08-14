@@ -1,13 +1,14 @@
-package br.com.paulogabrieljb.twitchbot.configurations;
+package br.com.paulogabrieljb.twitchbot.db;
 
+import br.com.paulogabrieljb.twitchbot.exceptions.DatabaseException;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.sql.*;
 
-public class DatabaseConfig {
+public class DatabaseFactory {
 
-    private static final Logger LOG = Logger.getLogger(DatabaseConfig.class);
+    private static final Logger LOG = Logger.getLogger(DatabaseFactory.class);
     private static final String DB_URL = "jdbc:sqlite:db.db";
     private static final String DB = "db.db";
     private static Connection conn = null;
@@ -71,14 +72,7 @@ public class DatabaseConfig {
             LOG.info("Error in DB: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ps != null)
-                    ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            close(rs, ps, null);
         }
         return conn;
     }
@@ -92,7 +86,7 @@ public class DatabaseConfig {
 
     }
 
-    public static Connection getDatabase() {
+    public static Connection getConnection() {
         try {
             LOG.info("Try to connect to database.");
             if (conn == null)
@@ -102,6 +96,19 @@ public class DatabaseConfig {
         }
 
         return conn;
+    }
+
+    public static void close(ResultSet rs, Statement st, Connection conn){
+        try{
+            if(rs != null)
+                rs.close();
+            if(st != null)
+                st.close();
+            if(conn != null)
+                conn.close();
+        } catch (SQLException e){
+            throw new DatabaseException("Error: " + e.getMessage().toLowerCase());
+        }
     }
 
 }
